@@ -44,10 +44,10 @@ std::string infx2pstfx(std::string inf) {
             rezult += operation;
         } else {
             if (stack11.get() < priori || priori == 0 || stack11.isEmpty()) {
-                stack11.push(op);
+                stack11.push(operation);
             } else if (operation == ')') {
                 char summa = stack11.get();
-                while (getPrior(summa) >= priori) {
+                while (getPriori(summa) >= priori) {
                     rezult += summa;
                     stack11.pop();
                     summa = stack11.get();
