@@ -26,8 +26,8 @@ class TStack {
     }
     type get() const {
       if (top == -1) {
-        throw std::strung("Empty!");
-      } else {  
+        throw std::string("Empty!");
+      } else {
         return arr[top];
       }
     }
