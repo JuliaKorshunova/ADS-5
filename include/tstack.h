@@ -1,26 +1,34 @@
 // Copyright 2021 NNTU-CS
 #ifndef INCLUDE_TSTACK_H_
 #define INCLUDE_TSTACK_H_
-template<typename T, int size>
+#include <string>
+template<typename type, int size>
 class TStack {
  private:
-    T arr[100];
+    type arr[100];
     int top;
-    
+
  public:
     TStack(): top(-1) {}
-    void push(T value) {
+    void push(type value) {
       if (isFull()) {
         throw std::string("Full!");
       } else {
         arr[++top] = value;
       }
     }
-    const T& pop() {
+    const type& pop() {
       if (isEmpty()) {
         throw std::string("Empty!");
       } else {
         return arr[top--];
+      }
+    }
+    const type& get() {
+      if (isEmpty()) {
+        throw std::string("Empty!");
+      } else {
+        return arr[top];
       }
     }
     bool isEmpty()const {
@@ -28,13 +36,6 @@ class TStack {
     }
     bool isFull()const {
       return top == size - 1;
-    }
-    const T& get() {
-      if (isEmpty()) {
-        throw std::string("Empty!");
-      } else {
-        return arr[top];
-      }
     }
 };
 #endif  // INCLUDE_TSTACK_H_
