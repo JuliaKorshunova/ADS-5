@@ -8,40 +8,29 @@ class TStack {
     type arr[100];
     int top;
 
- public:
-    TStack() :top(-1) {}
-    void push(type value) {
-      if (isFull()) {
-        throw std::string("Full!");
-      } else {
-        arr[++top] = value;
-      }
-    }
-    const type& pop() {
-      if (isEmpty()) {
-        throw std::string("Empty!");
-      } else {
-        return arr[top--];
-      }
-    }
-    const type& get()const {
-      if (isEmpty()) {
-        throw std::string("Empty!");
-      } else {
-        return arr[top];
-      }
-    }
-    bool isEmpty()const {
+public:
+   TStack() :top(-1) {}
+   const type& get() {
+     if (isEmpty()) {
+       throw std::string("Empty!");
+     } else {
+       return arr[top];
+     }
+   }
+    bool isEmpty() const {
       return top == -1;
     }
-    bool isFull()const {
+    bool isFull() const {
       return top == size - 1;
     }
-    void topDelete() {
-        if (!isEmpty())
-            --top;
-        else
-            throw std::string("Empty(=)!");
+    void pop() {
+      if (top >= 0)
+          top--;
+    }
+    void push(type item) {
+      if (size - 1 > top) {
+        arr[++top] = item;
+      }
     }
 };
 #endif  // INCLUDE_TSTACK_H_
