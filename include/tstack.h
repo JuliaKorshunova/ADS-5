@@ -10,21 +10,21 @@ class TStack {
 
  public:
     TStack() :top(-1) {}
-    void push(type& value) {
+    void push(type value) {
       if (isFull()) {
         throw std::string("Full!");
       } else {
         arr[++top] = value;
       }
     }
-    type& pop() {
+    const type& pop() {
       if (isEmpty()) {
         throw std::string("Empty!");
       } else {
         return arr[top--];
       }
     }
-    type& get() const {
+    const type& get()const {
       if (isEmpty()) {
         throw std::string("Empty!");
       } else {
