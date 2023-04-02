@@ -8,15 +8,15 @@ class TStack {
     type arr[100];
     int top;
 
-public:
-   TStack() :top(-1) {}
-   const type& get() {
-     if (isEmpty()) {
-       throw std::string("Empty!");
-     } else {
-       return arr[top];
-     }
-   }
+ public:
+    TStack() :top(-1) {}
+    const type& get() {
+      if (isEmpty()) {
+        throw std::string("Empty!");
+      } else {
+        return arr[top];
+      }
+    }
     bool isEmpty() const {
       return top == -1;
     }
