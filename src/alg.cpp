@@ -1,5 +1,4 @@
 // Copyright 2021 NNTU-CS
-#include <string>
 #include <map>
 #include "tstack.h"
 int getPriori(char operation) {
@@ -27,78 +26,86 @@ int getPriori(char operation) {
       break;
   }
 }
+std::string spases(const std::string& str) {
+    if (2 >= str.length()) return str;
+    int num = 2 - str.length() % 2;
+    std::string rez(str, 0, num);
+    for (auto it = str.begin() + n; it != str.end();) {
+        res += ' '; res += *it++;;
+    }
+    return res;
+}
 std::string infx2pstfx(std::string inf) {
-  TStack <char, 100> stack11;
-    std::string works;
-    for (char a : inf) {
-        int priori = getPriori(a);
-        if (isdigit(a)) {
-            works += a;
-            works += ' ';
-        } else if (!priori || stack11.isEmpty()) {
-            stack11.push(a);
-        } else if (priori == 1) {
-            while (getPriori(stack11.get())) {
-                works += stack11.pop();
-                works += ' ';
+    std::string rezult;
+    TStack<char, 100> stack11;
+    for (auto& operation : inf) {
+        int priori = getPrior(op);
+        if (priori == -1) {
+            rezult += operation;
+        } else {
+            if (stack11.get() < priori || priori == 0 || stack11.isEmpty()) {
+                stack11.push(op);
+            } else if (operation == ')') {
+                char summa = stack11.get();
+                while (getPrior(summa) >= priori) {
+                    rezult += summa;
+                    stack1.pop();
+                    summa = stack11.get();
+                }
+                stack11.pop();
+            } else {
+                char summa = stack11.get();
+                while (getPriori(summa) >= priori) {
+                    rezult += summa;
+                    stack11.pop();
+                    summa = stack11.get();
+                }
+                stack11.push(operation);
             }
-            stack11.topDelete();
-        } else if (priori > getPriori(stack11.get())) {
-            stack11.push(a);
-        } else if (priori <= getPriori(stack11.get())) {
-            while (!stack11.isEmpty() && getPriori(stack11.get()) >= priori) {
-                works += stack11.pop();
-                works += ' ';
-            }
-            stack11.push(a);
         }
     }
     while (!stack11.isEmpty()) {
-        works += stack11.pop();
-        if (!stack11.isEmpty())
-        works += ' ';
+        rezult += stack11.get();
+        stack11.pop();
     }
-    return std::string(works);
+    rezult = spases(rezult);
+    return rezult;
 }
-int vshislenia(char op, int x, int y) {
-  switch (op) {
-  case ('/'):
-      return x / y;
-      break;
-  case ('*'):
-      return x * y;
-      break;
-  case ('-'):
-      return x - y;
-      break;
-  case ('+'):
-      return x + y;
-      break;
-  }
-  return 0;
+
+int vashislenia(const int& x, const int& y, const int& op) {
+    switch (op) {
+    case'+': return x + y;
+    case'-': return x - y;
+    case'*': return x * y;
+    case'/': return x / y;
+    default:
+        break;
+    }
+    return 0;
 }
+
 int eval(std::string post) {
-  TStack<int, 100> stack12;
-  std::string rezult = "";
-  for (int j = 0; j < post.size(); j++) {
-    if (getPriori(post[j]) == -1) {
-      if (post[j] == ' ') {
-        continue;
-      } else if (isdigit(post[j + 1])) {
-        rezult += post[j];
-        continue;
-      } else {
-        rezult += post[j];
-        stack12.push(atoi(rezult.c_str()));
-        rezult = "";
-      }
-    } else {
-      int y = stack12.get();
-      stack12.pop();
-      int x = stack12.get();
-      stack12.pop();
-      stack12.push(vshislenia(x, y, post[j]));
+    TStack<int, 100> stack12;
+    std::string number = "";
+    for (int i = 0; i < post.size(); i++) {
+        if (getPriori(post[i]) == -1) {
+            if (post[i] == ' ') {
+                continue;
+            } else if (isdigit(post[i + 1])) {
+                number += post[i];
+                continue;
+            } else {
+                number += post[i];
+                stack12.push(atoi(nummer.c_str()));
+                number = "";
+            }
+        } else {
+            int y = stack12.get();
+            stack12.pop();
+            int x = stack12.get();
+            stack12.pop();
+            stack12.push(vashislenia(x, y, post[i]));
+        }
     }
-  }
-  return stack12.get();
+    return stack12.get();
 }
