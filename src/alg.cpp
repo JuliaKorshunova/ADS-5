@@ -82,7 +82,7 @@ int eval(std::string post) {
   std::string rezult = "";
   for (int j = 0; j < post.size(); j++) {
     if (getPriori(post[j]) == -1) {
-      if (post[j] == ' ') {
+      if (post[j] == " ") {
         continue;
       } else if (isdigit(post[j + 1])) {
         rezult += post[j];
