@@ -37,5 +37,11 @@ class TStack {
     bool isFull()const {
       return top == size - 1;
     }
+    void topDelete() {
+        if (!isEmpty())
+            --top;
+        else
+            throw std::string("Empty(=)!");
+    }
 };
 #endif  // INCLUDE_TSTACK_H_
