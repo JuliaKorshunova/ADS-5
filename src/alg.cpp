@@ -2,27 +2,27 @@
 #include <string>
 #include <map>
 #include "tstack.h"
-int getPriority(char operation) {
+int getPriori(char operation) {
   switch (operation) {
-    case ('('): 
+    case ('('):
       return 0;
       break;
-    case (')'): 
+    case (')'):
       return 1;
       break;
-    case ('+'): 
+    case ('+'):
       return 2;
       break;
-    case ('-'): 
+    case ('-'):
       return 2;
       break;
-    case ('*'): 
+    case ('*'):
       return 3;
       break;
-    case ('/'): 
+    case ('/'):
       return 3;
       break;
-    default: 
+    default:
       return -1;
       break;
   }
@@ -31,22 +31,22 @@ std::string infx2pstfx(std::string inf) {
   TStack <char, 100> stack11;
     std::string works;
     for (char a : inf) {
-        int priority = getPriority(a);
+        int priori = getPriori(a);
         if (isdigit(a)) {
             works += a;
             works += ' ';
-        } else if (!priority || stack1.isEmpty()) {
+        } else if (!priori || stack11.isEmpty()) {
             stack11.push(a);
-        } else if (priority == 1) {
-            while (getPriority(stack11.get())) {
+        } else if (priori == 1) {
+            while (getPriori(stack11.get())) {
                 works += stack11.pop();
                 works += ' ';
             }
-            stack11.top_delete();
-        } else if (priority > getPriority(stack11.get())) {
+            stack11.topDelete();
+        } else if (priori > getPriori(stack11.get())) {
             stack11.push(a);
-        } else if (priority <= getPriority(stack11.get())) {
-            while (!stack11.isEmpty() && getPriority(stack11.get()) >= priority) {
+        } else if (priori <= getPriori(stack11.get())) {
+            while (!stack11.isEmpty() && getPriori(stack11.get()) >= priori) {
                 works += stack11.pop();
                 works += ' ';
             }
@@ -62,16 +62,16 @@ std::string infx2pstfx(std::string inf) {
 }
 int vshislenia(char op, int x, int y) {
   switch (op) {
-  case ('/'): 
+  case ('/'):
       return x / y;
       break;
-  case ('*'): 
+  case ('*'):
       return x * y;
       break;
-  case ('-'): 
+  case ('-'):
       return x - y;
       break;
-  case ('+'): 
+  case ('+'):
       return x + y;
       break;
   }
@@ -79,9 +79,9 @@ int vshislenia(char op, int x, int y) {
 }
 int eval(std::string post) {
   TStack<int, 100> stack12;
-  std::string rezult = '';
+  std::string rezult = "";
   for (int j = 0; j < post.size(); j++) {
-    if (getPriority(pref[j]) == -1) {
+    if (getPriori(post[j]) == -1) {
       if (pref[j] == ' ') {
         continue;
       } else if (isdigit(post[j + 1])) {
@@ -95,9 +95,9 @@ int eval(std::string post) {
     } else {
       int y = stack12.get();
       stack12.pop();
-      int x = stack.get();
+      int x = stack12.get();
       stack12.pop();
-      stack12.push(count(x, y, post[j]));
+      stack12.push(vshislenia(x, y, post[j]));
     }
   }
   return stack12.get();
