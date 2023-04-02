@@ -30,16 +30,16 @@ std::string spases(const std::string& str) {
     if (2 >= str.length()) return str;
     int num = 2 - str.length() % 2;
     std::string rez(str, 0, num);
-    for (auto it = str.begin() + n; it != str.end();) {
-        res += ' '; res += *it++;;
+    for (auto it = str.begin() + num; it != str.end();) {
+        rez += ' '; rez += *it++;;
     }
-    return res;
+    return rez;
 }
 std::string infx2pstfx(std::string inf) {
     std::string rezult;
     TStack<char, 100> stack11;
     for (auto& operation : inf) {
-        int priori = getPrior(op);
+        int priori = getPriori(operation);
         if (priori == -1) {
             rezult += operation;
         } else {
@@ -49,7 +49,7 @@ std::string infx2pstfx(std::string inf) {
                 char summa = stack11.get();
                 while (getPrior(summa) >= priori) {
                     rezult += summa;
-                    stack1.pop();
+                    stack11.pop();
                     summa = stack11.get();
                 }
                 stack11.pop();
@@ -96,7 +96,7 @@ int eval(std::string post) {
                 continue;
             } else {
                 number += post[i];
-                stack12.push(atoi(nummer.c_str()));
+                stack12.push(atoi(number.c_str()));
                 number = "";
             }
         } else {
